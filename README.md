@@ -27,17 +27,17 @@ Exécutez la commande ``cd First_api_symfony`` pour vous rendre dans le dossier 
 afin d'eviter d'ecrire ces commandes j'ai realisé un script pour inserer de fausses données dans votre bdd, il suffit de taper dans votre console `composer prepare`
 
 
-- Drop la database                                                              "symfony console doctrine:database:drop -f"
+- Drop la database                                                              ``symfony console doctrine:database:drop -f``
 
-- Crée la base de donnée(grace au informations inserés dans le fichier .env)     "symfony console doctrine:database:create"
+- Crée la base de donnée(grace au informations inserés dans le fichier .env)     ``symfony console doctrine:database:create``
 
-- Creation du schema sql pour les données                                        "symfony console doctrine:schema:update -f"`
+- Creation du schema sql pour les données                                        ``symfony console doctrine:schema:update -f``
 
-- Chargement des fake data en bdd -n qui signifie que la commande ne requert pas d'autorisation de votre part        "symfony console doctrine:fixtures:load -n"
+- Chargement des fake data en bdd -n qui signifie que la commande ne requert pas d'autorisation de votre part       ``symfony console doctrine:fixtures:load -n``
 
 ### Lancement
 
 Vous pouvez maintenant accéder a l'interface de l'api en vous connectant au serveur : ``symfony server:start``
 
-Pour acceder à l'interface api platform inserer la requete suivante 'http://127.0.0.1:8000/api/docs'
+Pour acceder à l'interface api platform inserer la requete suivante ``http://127.0.0.1:8000/api/docs``
 
