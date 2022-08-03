@@ -18,6 +18,10 @@ Exécutez la commande ``cd First_api_symfony`` pour vous rendre dans le dossier 
 
   ``DATABASE_URL=mysql://User:Password@127.0.0.1:3306/nameDatabasse?serverVersion=5.7``
   
+  
+###Lancement
+
+
    Puis exécuter la création de la base de donnée avec la commande : ``symfony console doctrine:database:create``
 
 afin d'eviter d'ecrire ces commandes j'ai realisé un script pour inserer de fausses données dans votre bdd, il suffit de taper dans votre console `composer prepare`
@@ -32,4 +36,6 @@ creation du schema sql pour les données                                        
 Chargement des fake data en bdd -n qui signifie que la commande ne requert pas d'autorisation de votre part        "symfony console doctrine:fixtures:load -n"
 
 Vous pouvez maintenant accéder a l'interface de l'api en vous connectant au serveur : ``symfony server:start``
+
+Pour acceder à l'interface api platform inserer la requete suivante 'http://127.0.0.1:8000/api/docs'
 
