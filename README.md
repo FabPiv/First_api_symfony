@@ -39,5 +39,5 @@ afin d'eviter d'ecrire ces commandes j'ai realisé un script pour inserer de fau
 
 Vous pouvez maintenant accéder a l'interface de l'api en vous connectant au serveur : ``symfony server:start``
 
-Pour acceder à l'interface api platform inserer la requete suivante ``http://127.0.0.1:8000/api/docs``
+Pour acceder à l'interface api platform inserer la requete suivante dans votre navigateur ``http://127.0.0.1:8000/api/docs``
 
