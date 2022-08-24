@@ -90,26 +90,6 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                             ],
                         ],
                     ],
-                    'patch' => [
-                        'method' => 'PATCH',
-                        'stateless' => null,
-                        'input_formats' => [
-                            'json' => [
-                                'application/merge-patch+json',
-                            ],
-                        ],
-                        'output_formats' => [
-                            'jsonld' => [
-                                'application/ld+json',
-                            ],
-                            'json' => [
-                                'application/json',
-                            ],
-                            'html' => [
-                                'text/html',
-                            ],
-                        ],
-                    ],
                 ],
             ],
             'collectionOperations' => [
@@ -179,6 +159,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'attributes' => [
                 [
+                    'pagination_enabled' => false,
                     'cache_headers' => null,
                     'denormalization_context' => null,
                     'deprecation_reason' => null,
@@ -186,7 +167,10 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                     'fetch_partial' => null,
                     'force_eager' => null,
                     'formats' => null,
-                    'filters' => null,
+                    'filters' => [
+                        'annotated_app_entity_person_api_platform_core_bridge_doctrine_orm_filter_search_filter',
+                        'annotated_app_entity_person_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter',
+                    ],
                     'hydra_context' => null,
                     'input' => null,
                     'mercure' => null,
@@ -199,7 +183,6 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                     'pagination_client_items_per_page' => null,
                     'pagination_client_partial' => null,
                     'pagination_via_cursor' => null,
-                    'pagination_enabled' => null,
                     'pagination_fetch_join_collection' => null,
                     'pagination_items_per_page' => null,
                     'pagination_maximum_items_per_page' => null,

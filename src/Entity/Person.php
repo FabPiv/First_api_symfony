@@ -1,11 +1,25 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\PersonRepository;
 use Doctrine\ORM\Mapping as ORM;
-#[ApiResource]
+#[ApiResource(
+    collectionOperations:['get','post'],
+    itemOperations:['get','delete','put'],
+    attributes:['pagination_enabled' => false]
+)]
+#[ApiFilter(SearchFilter::class, properties:[
+    'firstName' => SearchFilter::STRATEGY_PARTIAL,
+    'lastName' => SearchFilter::STRATEGY_PARTIAL,
+])]
+
+#[ApiFilter(OrderFilter::class, properties:
+['firstName', 'lastName'], arguments : ['orderParameterName' => 'order'])]
+
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
 class Person
 {

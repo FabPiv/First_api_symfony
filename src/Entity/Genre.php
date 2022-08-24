@@ -1,10 +1,23 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
+#[ApiResource(
+    collectionOperations:['get','post'],
+    itemOperations:['get','delete','put'],
+    attributes:['pagination_enabled' => false]
+)]
+#[ApiFilter(SearchFilter::class, properties:[
+    'name' => SearchFilter::STRATEGY_PARTIAL
+])]
 
+#[ApiFilter(OrderFilter::class, properties:
+['name'], arguments : ['orderParameterName' => 'order'])]
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
 class Genre
 {

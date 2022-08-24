@@ -576,7 +576,7 @@
     <service id="container.get_routing_condition_service" class="Closure" public="true">
       <tag name="routing.expression_language_function" function="service"/>
       <argument type="collection">
-        <argument type="service" id="api_platform.filter_locator"/>
+        <argument type="service" id=".service_locator.Xbsa8iG"/>
         <argument>get</argument>
       </argument>
       <factory class="Closure" method="fromCallable"/>
@@ -2486,7 +2486,7 @@
       <tag name="twig.extension"/>
     </service>
     <service id="twig.extension.htmlsanitizer" class="Symfony\Bridge\Twig\Extension\HtmlSanitizerExtension">
-      <argument type="service" id="api_platform.filter_locator"/>
+      <argument type="service" id=".service_locator.Xbsa8iG"/>
     </service>
     <service id="twig.extension.httpkernel" class="Symfony\Bridge\Twig\Extension\HttpKernelExtension">
       <tag name="twig.extension"/>
@@ -4027,10 +4027,20 @@
     </service>
     <service id="api_platform.filter_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="annotated_app_entity_genre_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" type="service_closure" id="annotated_app_entity_genre_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter"/>
+        <argument key="annotated_app_entity_genre_api_platform_core_bridge_doctrine_orm_filter_search_filter" type="service_closure" id="annotated_app_entity_genre_api_platform_core_bridge_doctrine_orm_filter_search_filter"/>
+        <argument key="annotated_app_entity_person_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" type="service_closure" id="annotated_app_entity_person_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter"/>
+        <argument key="annotated_app_entity_person_api_platform_core_bridge_doctrine_orm_filter_search_filter" type="service_closure" id="annotated_app_entity_person_api_platform_core_bridge_doctrine_orm_filter_search_filter"/>
+      </argument>
     </service>
     <service id="api_platform.filter_collection_factory" class="ApiPlatform\Core\Api\FilterCollectionFactory">
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument>annotated_app_entity_genre_api_platform_core_bridge_doctrine_orm_filter_search_filter</argument>
+        <argument>annotated_app_entity_genre_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter</argument>
+        <argument>annotated_app_entity_person_api_platform_core_bridge_doctrine_orm_filter_search_filter</argument>
+        <argument>annotated_app_entity_person_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter</argument>
+      </argument>
     </service>
     <service id="api_platform.filters" class="ApiPlatform\Core\Api\FilterCollection">
       <argument type="service" id="api_platform.filter_locator"/>
@@ -4831,6 +4841,52 @@
     <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
       <tag name="doctrine.fixtures.purger_factory" alias="default"/>
     </service>
+    <service id="annotated_app_entity_genre_api_platform_core_bridge_doctrine_orm_filter_search_filter" class="ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter" autowire="true">
+      <tag name="api_platform.filter"/>
+      <argument type="service" id="doctrine"/>
+      <argument>null</argument>
+      <argument type="service" id="api_platform.iri_converter"/>
+      <argument type="service" id="property_accessor"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
+      <argument type="collection">
+        <argument key="name">partial</argument>
+      </argument>
+      <argument type="service" id="api_platform.identifiers_extractor.cached" on-invalid="ignore"/>
+      <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
+    </service>
+    <service id="annotated_app_entity_genre_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" class="ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter" autowire="true" autoconfigure="true">
+      <tag name="api_platform.filter"/>
+      <argument type="service" id="doctrine"/>
+      <argument>order</argument>
+      <argument type="service" id="logger"/>
+      <argument type="collection">
+        <argument key="name">null</argument>
+      </argument>
+    </service>
+    <service id="annotated_app_entity_person_api_platform_core_bridge_doctrine_orm_filter_search_filter" class="ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter" autowire="true">
+      <tag name="api_platform.filter"/>
+      <argument type="service" id="doctrine"/>
+      <argument>null</argument>
+      <argument type="service" id="api_platform.iri_converter"/>
+      <argument type="service" id="property_accessor"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
+      <argument type="collection">
+        <argument key="firstName">partial</argument>
+        <argument key="lastName">partial</argument>
+      </argument>
+      <argument type="service" id="api_platform.identifiers_extractor.cached" on-invalid="ignore"/>
+      <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
+    </service>
+    <service id="annotated_app_entity_person_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" class="ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter" autowire="true" autoconfigure="true">
+      <tag name="api_platform.filter"/>
+      <argument type="service" id="doctrine"/>
+      <argument>order</argument>
+      <argument type="service" id="logger"/>
+      <argument type="collection">
+        <argument key="firstName">null</argument>
+        <argument key="lastName">null</argument>
+      </argument>
+    </service>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\GenreFixtures" class="App\DataFixtures\GenreFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\GenreFixtures" class="App\DataFixtures\GenreFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" autowire="true" abstract="true"/>
@@ -4843,6 +4899,10 @@
     <service id=".abstract.instanceof.App\Repository\MovieRepository" class="App\Repository\MovieRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PersonRepository" class="App\Repository\PersonRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\PersonRepository" class="App\Repository\PersonRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.ApiPlatform\Core\Api\FilterInterface.0.annotated_app_entity_genre_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" class="ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.annotated_app_entity_genre_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" class="ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.ApiPlatform\Core\Api\FilterInterface.0.annotated_app_entity_person_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" class="ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.annotated_app_entity_person_api_platform_core_bridge_doctrine_mongo_db_odm_filter_order_filter" class="ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.gSv9zYw" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5353,6 +5413,10 @@
       <argument type="collection">
         <argument key="reverse_container" type="service_closure" id="reverse_container" on-invalid="ignore_uninitialized"/>
       </argument>
+    </service>
+    <service id=".service_locator.Xbsa8iG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
     </service>
     <service id=".service_locator.yKHwqJO" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -6285,7 +6349,7 @@
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.bnaLdkn" alias="api_platform.serializer_locator"/>
-    <service id=".service_locator.Xbsa8iG" alias="api_platform.filter_locator"/>
+    <service id=".service_locator.arTNUw3" alias="api_platform.filter_locator"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.IVq3S6E" alias=".service_locator.o3sqUs1"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.l6ELYLY"/>
